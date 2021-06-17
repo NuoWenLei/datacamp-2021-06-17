@@ -1,0 +1,31 @@
+---
+title: "viz"
+author: "Nuo Wen Lei"
+date: "6/17/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+```
+
+```{r plot}
+raw_data = read_csv("birthdates.csv", col_types = cols())
+
+raw_data %>% 
+  mutate(bday=parse_date(str_sub(value, 2, 11))) %>% 
+  mutate(month=months(bday)) %>% 
+  mutate(month_num=month(bday)) %>% 
+  group_by(month_num) %>% 
+  summarize(total=n(), .groups="drop") %>% 
+  mutate(month_fct = as.factor(month_num)) %>% 
+  ggplot(mapping=aes(x=month_num, y=total)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle=-90, hjust=0)) +
+  scale_x_continuous(breaks=c(1:12), labels=month)
+
+
+```
+
