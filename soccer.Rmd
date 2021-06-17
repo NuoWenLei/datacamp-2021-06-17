@@ -24,7 +24,7 @@ raw_data %>%
   ggplot(mapping=aes(x=month_num, y=total)) +
   geom_col() +
   theme(axis.text.x = element_text(angle=-90, hjust=0)) +
-  scale_x_continuous(breaks=c(1:12), labels=month)
+  scale_x_continuous(breaks=c(1:12), labels=)
 
 
 ```
